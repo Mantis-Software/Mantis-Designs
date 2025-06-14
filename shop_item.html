@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Cat Pillow – Mantis Designs</title>
+  <link rel="icon" type="image/x-icon" href="./White-MantisLogo.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Nunito", sans-serif;
+      background: #fff;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .custom-header {
+      border-bottom: 1px solid #ccc;
+      padding: 1.5rem 2rem;
+      background: #fff;
+      position: relative;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    .logo-img
+    {
+        width: 200px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background: #000;
+    }   
+
+    .item-section {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 5rem auto;
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .image-gallery {
+      flex: 1 1 400px;
+    }
+
+    .main-image {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .thumbnail-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .thumbnail {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .thumbnail.active {
+      border: 2px solid #000;
+    }
+
+    .item-details {
+      flex: 1 1 500px;
+    }
+
+    .item-details h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .item-details p {
+      font-size: 1.1rem;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .item-details .price {
+      font-size: 1.5rem;
+      margin: 1.5rem 0;
+      font-weight: bold;
+    }
+    .custom-footer {
+      background: #1d1b19;
+      color: white;
+      padding: 3rem 2rem;
+      text-align: left;
+    }
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .social-icons img {
+      width: 24px;
+    }
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .shopButton
+    {
+        background-color: #000; 
+        padding: 15px; 
+        border-radius: 16px; 
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+
+        .logo-img
+    {
+    width: 150px;
+    }
+    .menu-toggle {
+    display: flex;
+    justify-content:center;
+    align-items: flex-end;
+    width: 100%;
+    }
+    nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 120px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 1rem 2rem;
+    z-index: 100;
+    }
+    nav ul.active {
+    display: flex;
+    }
+      .shopButton
+        {
+            background-color: white; 
+            padding: 0px; 
+            border-radius: 0px; 
+            color: black;
+        }
+    }
+    .buy-button
+    {
+        background-color: #000;
+        width: 100px;
+        text-align: center;
+        height: 25px;
+        color: white;
+        padding: 10px;
+    }
+    .buy-button:hover
+    {
+        background-color: white;
+        color: #000;
+        border-style: solid;
+        cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+    <header class="custom-header">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href = './index.html';"><img class="logo-img" src="./Mantis_Designs_Logo.png"/></div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <nav>
+            <ul id="nav-links">
+              <li><a href="#services">Services</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="./shop.html" class="shopButton">Shop</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+  <section class="item-section">
+    <div class="image-gallery">
+      <img id="mainDisplay" class="main-image" src="./images/projects/pillow_img.JPG" alt="Cat Pillow" />
+      <div class="thumbnail-row">
+        <img class="thumbnail active" src="./images/projects/pillow_img.JPG" onclick="changeImage(this)" />
+        <img class="thumbnail" src="./images/projects/tabletop_img.JPG" onclick="changeImage(this)" />
+        <img class="thumbnail" src="./images/projects/pokeball_img.JPG" onclick="changeImage(this)" />
+      </div>
+    </div>
+
+    <div class="item-details">
+      <h1>Custom Cat Pillow</h1>
+      <p>A soft, handmade pillow featuring your favorite furry friend. Customize the fabric and size to create the perfect accent for your home or gift for someone special.</p>
+      <div class="price">$25.00</div>
+      <div class="buy-button">Buy Now</div>
+
+    </div>
+  </section>
+
+  <footer class="custom-footer">
+    <div class="footer-content">
+      <h2>MANTIS DESIGNS</h2>
+      <p>Beauty Made to Last</p>
+      <div class="social-icons">
+        <a href="#"><img src="./images/instagram_icon.png" alt="Instagram"></a>
+        <a href="#"><img src="./images/tiktok_icon.png" alt="TikTok"></a>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.9rem;">2025 All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    function changeImage(thumbnail) {
+      const mainDisplay = document.getElementById("mainDisplay");
+      const thumbnails = document.querySelectorAll(".thumbnail");
+      thumbnails.forEach(thumb => thumb.classList.remove("active"));
+      mainDisplay.src = thumbnail.src;
+      thumbnail.classList.add("active");
+    }
+  </script>
+    <script>
+        function toggleMenu() {
+          const navLinks = document.getElementById('nav-links');
+          navLinks.classList.toggle('active');
+        }
+    
+        function toggleFAQ(selected) {
+          document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== selected) item.classList.remove('active');
+          });
+          selected.classList.toggle('active');
+        }
+      </script>
+</body>
+</html>

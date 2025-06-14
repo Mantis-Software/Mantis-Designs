@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mantis Designs</title>
+  <link rel="icon" type="image/x-icon" href="./White-MantisLogo.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
@@ -108,20 +109,34 @@
     .service-boxes {
       display: flex;
       flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
       gap: 1rem;
       margin-top: 2rem;
     }
     .service-box {
-      flex: 1 1 180px;
+      width: 400px;
+      height: 300px;
       background: #f4f4f4;
       padding: 1.5rem;
       cursor: pointer;
       transition: 0.3s;
     }
-    .service-box:hover, .service-box.active {
+    .service-box-title
+    {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .service-box:hover {
       background: #000;
       color: #fff;
     }
+
+    .service-box:hover img {
+    filter: invert(100%) brightness(200%);
+    }
+
     .project-grid {
       display: flex;
       flex-direction: row;
@@ -291,7 +306,9 @@
     }
     .menu-toggle {
     display: flex;
-    margin-right: -90px;
+    justify-content:center;
+    align-items: flex-end;
+    width: 100%;
     }
     nav ul {
     display: none;
@@ -320,7 +337,6 @@
 
     .service-image-display
 {
-    display: none;
 }
     }
     .hero-section {
@@ -369,7 +385,7 @@
 <body>
   <header class="custom-header">
     <div class="nav-container">
-      <div class="logo"><img class="logo-img" src="./Mantis_Designs_Logo.png"/></div>
+      <div class="logo" onclick="window.location.href = './index.html';"><img class="logo-img" src="./Mantis_Designs_Logo.png"/></div>
       <div class="menu-toggle" onclick="toggleMenu()">
         <div></div>
         <div></div>
@@ -381,7 +397,7 @@
           <li><a href="#projects">Projects</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="#projects" class="shopButton">Shop</a></li>
+          <li><a href="./shop.html" class="shopButton">Shop</a></li>
         </ul>
       </nav>
     </div>
@@ -391,7 +407,7 @@
     <div class="circle-container"></div>
     <div class="hero-text">
         <h1>Beauty Made to Last</h1>
-        <p>From 3D printing to woodwork and apparel, Mantis Designs blends craftsmanship with digital innovation.</p>
+        <p>From 3D printing to woodwork and electronics, Mantis Designs blends craftsmanship with digital innovation.</p>
     </div>
   </section>
 
@@ -401,9 +417,7 @@
       <br>
       <br>
       <p>
-        In today's day in age, we are constantly bombarded with work of corporations which maximize profits with little care in the user experience and the longevity of the product.
-        With the rise of AI, we are starting to see this behavior bleed into media for enterntainment and professional uses. Art and products made for humans should be beautiful with the human user
-        in mind. Our goal at Mantis Designs is to provide quality product that maximizes beauty and function over profits - aiming for our pieces to be relied on for lifetimes and beyond.
+        In today’s era, we’re surrounded by products that are mass-produced, disposable, and designed to fail. At Mantis Designs, we aim to make a difference - by creating better products, made by humans, for humans. As artificial intelligence floods the market with fast, soulless designs, we stand for craftsmanship, individuality, and timeless quality. Every piece we create is built to last for generations.
       </p>
     </div>
   </section>
@@ -413,29 +427,30 @@
       <div style="flex: 1 1 300px;">
         <h3 style="color: #888; font-weight: 400;">— OUR SERVICES</h3>
         <h2 style="margin: 0.5rem 0 1rem; font-size: 2rem;">Transformative custom services<br>for creative visions</h2>
-        <p>We merge creativity and functionality across mediums: 3D prints, wood, apparel, and digital. Discover how our cross-discipline design approach helps realize your custom product ideas.</p>
-      </div>
-      <div class="service-image-display" style="flex: 1 1 600px;">
-        <img id="service-image" src="./images/3dPrint_img.jpg" alt="Service Preview" style="width: 100%; height: auto;">
+        <p>We design and build - merging creativity and functionality across mediums: 3D prints, wood, apparel, and digital. Discover how our cross-discipline design approach helps realize your custom product ideas.</p>
       </div>
     </div>
   
     <div class="service-boxes">
       <div class="service-box active" data-image="./images/3dPrint_img.jpg">
-        <div class="title">3D Design</div>
-        <div class="index">01 <span class="arrow">→</span></div>
+        <div class="service-box-icon"><img src="./images/3dPrinterIcon.png"/></div>
+        <div class="service-box-title">3D Design</div>
+        <div class="index">Bring your ideas to life with precision and creativity. From custom product prototypes to intricate art pieces, we design 3D models tailored to your vision.</div>
       </div>
       <div class="service-box" data-image="./images/woodwork_img.jpg">
-        <div class="title">Wood Crafting</div>
-        <div class="index">02 <span class="arrow">→</span></div>
+        <div><img src="./images/woodIcon.png"/></div>
+        <div class="service-box-title">Wood Crafting</div>
+        <div class="index">Handcrafted with care, our wood creations blend function with artistry. Whether it's decor, furniture, or custom gifts, we shape wood into lasting statements.</div>
       </div>
       <div class="service-box" data-image="./images/apparel_img.jpg">
-        <div class="title">Apparel Printing</div>
-        <div class="index">03 <span class="arrow">→</span></div>
+        <div><img src="./images/shirtIcon.png"/></div>
+        <div class="service-box-title">Apparel Printing</div>
+        <div class="index">Your style, your message. We print high-quality designs on shirts, hoodies, and more—perfect for events, brands, or personal expression.</div>
       </div>
       <div class="service-box" data-image="./images/electronics_img.jpg">
-        <div class="title">Electronics</div>
-        <div class="index">04 <span class="arrow">→</span></div>
+        <div><img src="./images/electronicsIcon.png"/></div>
+        <div class="service-box-title">Electronics</div>
+        <div class="index">Innovative builds for modern needs. We design and assemble custom electronics—from automated systems to interactive circuits—suited for creative and functional projects.</div>
       </div>
     </div>
   </section>
@@ -456,7 +471,15 @@
     <h3 style="color: #888; font-weight: 400;">— PAST PROJECTS</h3>
     <h2 style="margin-bottom: 2rem;">A showcase of custom creations</h2>
     <div class="project-grid">
-      <div class="project-card">
+      <div class="project-card" onclick="window.location.href='./lamp-projectpage.html';">
+        <img src="./images/projects/lamp.JPG">
+        <div class="project-info">
+          <span>Custom Lamp</span>
+          <span class="arrow">→</span>
+        </div>
+        <div class="project-year">June 2025</div>
+      </div>
+      <div class="project-card" onclick="window.location.href='./catPillow-projectpage.html';">
         <img src="./images/projects/pillow_img.JPG" alt="Custom Pillow Cat Print">
         <div class="project-info">
           <span>Custom Pillow Cat Print</span>
@@ -464,7 +487,7 @@
         </div>
         <div class="project-year">May 2025</div>
       </div>
-      <div class="project-card">
+      <div class="project-card" onclick="window.location.href='./tabletop_projectpage.html';">
         <img src="./images/projects/tabletop_img.JPG" alt="3d Printed Social Table Top">
         <div class="project-info">
           <span>3D Printed Social Table Top</span>
@@ -472,7 +495,7 @@
         </div>
         <div class="project-year">January 2025</div>
       </div>
-      <div class="project-card">
+      <div class="project-card" onclick="window.location.href='./pokeball_projectpage.html';">
         <img src="./images/projects/pokeball_img.JPG" alt="Modded Pokemon Go Plus +">
         <div class="project-info">
           <span>Modded Pokemon GO Plus +</span>
@@ -495,19 +518,15 @@
       <div class="faq-right">
         <div class="faq-item" onclick="toggleFAQ(this)">
           <div class="faq-question"><strong>What types of projects do you undertake?</strong></div>
-          <div class="faq-answer">We specialize in combining 3D printing, woodworking, software, and apparel to produce unique, tailored creations.</div>
+          <div class="faq-answer">We work with various mediums such as 3D printing, woodworking, software, apparel, and electronics to produce unique, tailored creations. Contact us to see if we would be the best fit for your project.</div>
         </div>
         <div class="faq-item" onclick="toggleFAQ(this)">
           <div class="faq-question"><strong>How involved are clients in the design process?</strong></div>
-          <div class="faq-answer">Clients are involved at every step, from concept to delivery.</div>
+          <div class="faq-answer">Clients are involved at every step, from concept to delivery. From planning to delivery we will update our clients with progress messages and images.</div>
         </div>
         <div class="faq-item" onclick="toggleFAQ(this)">
           <div class="faq-question"><strong>What makes your studio unique?</strong></div>
-          <div class="faq-answer">Our integration of digital and physical mediums sets us apart.</div>
-        </div>
-        <div class="faq-item" onclick="toggleFAQ(this)">
-          <div class="faq-question"><strong>How do you prioritize sustainability in your design?</strong></div>
-          <div class="faq-answer">We use recyclable materials and minimize waste in all our processes.</div>
+          <div class="faq-answer">We blend digital and physical mediums to craft one-of-a-kind pieces. By combining materials and techniques across disciplines, we create designs that wouldn’t be possible through a single form of creation alone.</div>
         </div>
         <div class="faq-item" onclick="toggleFAQ(this)">
           <div class="faq-question"><strong>What’s your typical project timeline?</strong></div>
@@ -522,37 +541,33 @@
       <div class="contact-header">
         <h3 style="color: #888; font-weight: 400;">— CONTACT</h3>
         <h2>How can we help?</h2>
-        <p>Email: <a href="mailto:info@mantisdesigns.com">info@mantisdesigns.com</a><br>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+        <p>Email: <a href="mailto:info@mantisdesigns.com">mario.dejesus@mantissoftware.io</a><br>Phone: <a>(832) 570 - 8833</a></p>
       </div>
       <form class="contact-form">
         <div class="input-group">
-          <input type="text" name="first-name" placeholder="FIRST NAME">
-          <input type="text" name="last-name" placeholder="LAST NAME">
-          <input type="email" name="email" placeholder="E-MAIL">
+          <input id="clientName" type="text" name="first-name" placeholder="FIRST NAME">
+          <input id="clientEmail" type="email" name="email" placeholder="E-MAIL">
         </div>
         <div class="input-group">
-          <input type="text" name="phone" placeholder="NUMBER">
-          <input type="text" name="company" placeholder="COMPANY NAME">
         </div>
         <div class="input-full">
-          <textarea name="message" placeholder="MESSAGE 
+          <textarea id="clientMessage" name="message" placeholder="MESSAGE 
 
   Tell us something about you and what you’re looking to collaborate on."></textarea>
         </div>
-        <button type="submit" class="submit-btn">Submit request →</button>
+        <button id="sendMessageButton" type="submit" class="submit-btn" onclick="sendMessageOnClick()">Submit request →</button>
       </form>
     </div>
   </section>
+
 
   <footer class="custom-footer">
     <div class="footer-content">
       <h2>MANTIS DESIGNS</h2>
       <p>Beauty Made to Last</p>
       <div class="social-icons">
-        <a href="#"><img src="https://placehold.co/24x24?text=F" alt="Facebook"></a>
-        <a href="#"><img src="https://placehold.co/24x24?text=X" alt="X"></a>
-        <a href="#"><img src="https://placehold.co/24x24?text=In" alt="LinkedIn"></a>
-        <a href="#"><img src="https://placehold.co/24x24?text=Ig" alt="Instagram"></a>
+        <a href="#"><img src="./images/instagram_icon.png" alt="Instagram"></a>
+        <a href="#"><img src="./images/tiktok_icon.png" alt="TikTok"></a>
       </div>
       <p style="margin-top: 1rem; font-size: 0.9rem;">2025 All rights reserved</p>
     </div>
@@ -596,5 +611,7 @@
   
     setInterval(createFloatingCircle, 900); // creates a circle every 0.5s
   </script>
+  <script src="./scripts.js"></script>
+
 </body>
 </html>
