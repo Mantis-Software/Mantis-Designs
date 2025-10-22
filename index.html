@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crafted by Nature</title>
+  <link rel="icon" type="image/x-icon" href="./images/White-MantisLogo.ico">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background-color: white; color: #222;}
+    a { text-decoration: none; color: inherit; }
+
+    header.navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background-color: white;
+      border-bottom: 1px solid #e5e5e5;
+      position: relative;
+    }
+    .navbar .logo { font-size: 28px; }
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+    }
+    .navbar nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+      font-size: 16px;
+    }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+      width: 30px;
+      height: 24px;
+      gap: 6px;
+    }
+    .menu-toggle span {
+      height: 3px;
+      width: 100%;
+      background: black;
+    }
+
+    .hero, .about-section, .collection-section, .highlight-section {
+      padding: 100px 60px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .hero-text { max-width: 600px; }
+    .hero h1 { font-size: 64px; font-weight: 400; margin-bottom: 30px; line-height: 1.2; }
+    .hero .subtext { font-size: 16px; color: #444; max-width: 380px; text-align: right; align-self: flex-end; }
+    .hero-images { display: flex; gap: 20px; width: 100%; }
+    .hero-images img { flex: 1; width: 100%; max-height: 700px; object-fit: cover; }
+
+    .about-heading, .highlight-heading { color: #777; font-size: 14px; text-transform: uppercase; margin-bottom: 10px; }
+    .about-text { font-size: 36px; font-weight: 400; line-height: 1.4; max-width: 900px; }
+    .about-content { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+    .about-caption { font-size: 14px; color: #333; max-width: 300px; }
+    .about-image img { width: 100%; max-width: 700px; object-fit: cover; }
+
+    .collection-header, .highlight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .collection-header h2, .highlight-header h2 {
+      font-size: 40px;
+      font-weight: 400;
+    }
+    .collection-header .tag, .highlight-heading {
+      color: #777;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .collection-header .desc, .highlight-header .desc {
+      font-size: 14px;
+      color: #333;
+      max-width: 300px;
+      text-align: right;
+    }
+    .collection-grid, .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .collection-item, .highlight-box {
+      position: relative;
+      overflow: hidden;
+      background: #f8f8f8;
+      padding: 40px 30px;
+      text-align: center;
+    }
+    .collection-item img, .highlight-box img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .collection-item.circle img { border-radius: 50%; }
+    .collection-item span {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      font-size: 20px;
+      font-weight: 500;
+      text-shadow: 0 0 4px rgba(0,0,0,0.5);
+    }
+    .highlight-box img { height: 300px; margin-bottom: 20px; }
+    .highlight-box h3 { font-size: 18px; margin-bottom: 10px; }
+    .highlight-box p { font-size: 14px; color: #444; }
+
+    footer {
+      background: #f4f4f4;
+      padding: 100px 60px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      
+    }
+    .footer-logo { font-size: 48px; }
+    .footer-column { display: flex; flex-direction: column; gap: 10px; }
+    .footer-column h4 { font-size: 12px; text-transform: uppercase; color: #666; margin-bottom: 10px; }
+    .footer-column a { font-size: 18px; font-weight: 400; }
+    .footer-contact a { font-size: 14px; color: #000; }
+    .footer-cta {
+      border: 1px solid black;
+      border-radius: 50%;
+      width: 200px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 14px;
+    }
+    .footer-bottom {
+      width: 100%;
+      text-align: right;
+      padding-top: 60px;
+      font-size: 12px;
+      color: #888;
+    }
+    .social-icons { display: flex; gap: 10px; margin-top: 20px; }
+    .social-icons img { width: 20px; height: 20px; }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      nav { display: none; flex-direction: column; gap: 10px; position: absolute; top: 100%; right: 20px; background: white; padding: 20px; border: 1px solid #ddd; z-index: 1000; }
+      nav.show { display: flex; }
+      .navbar nav ul { flex-direction: column; gap: 10px; }
+      .hero h1 { font-size: 40px; }
+      .hero .subtext { text-align: left; align-self: flex-start; }
+      .hero-images { flex-direction: column; }
+      .about-text { font-size: 24px; }
+      .collection-grid, .highlight-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; padding: 60px 30px; }
+      .footer-column, .footer-contact, .footer-cta { width: 100%; }
+      .footer-cta { margin-top: 20px; align-self: center; }
+      .footer-bottom { text-align: center; padding-top: 40px; }
+    }
+    .container {
+    max-width: 1800px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 20px;
+    }
+
+    .cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between;background:#111;color:#fff;border-radius:18px;padding:24px 24px;margin-top:48px}
+    .cta p{margin:0;color:#e5e7eb}
+    .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:999px;border:1px solid #111;background:#fff;color:#111;font-weight:600;cursor:pointer}
+    .btn.secondary{background:transparent;color:#fff;border-color:#fff}
+
+    .input-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .input-group input, .input-full textarea {
+      flex: 1 1 250px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-bottom: 1px solid #111;
+      outline: none;
+    }
+
+    .input-full textarea {
+      width: 100%;
+      min-height: 100px;
+      resize: none;
+    }
+
+    .submit-btn {
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      background: #000;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #333;
+    }
+
+    @media (max-width: 768px) {
+      .input-group {
+        flex-direction: column;
+      }
+      .input-group input {
+        flex: 1 1 80px;
+        height: 80px;
+      }
+      .input-full textarea {
+        height: 150px;
+      }
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    img {
+      animation: fade-in 10.0s ease both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><a href="./index.html"><img width="200" src="./images/Mantis_Designs_Logo.png" alt="Crafted by Nature"/></a></div>
+    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('show')">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="./collection.html">Collections</a></li>
+        <li><a href="./services.html">Services</a></li>
+        <li><a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a></li>
+        <li><a href="./about.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Nature’s Design,<br> Perfected by You</h1>
+    </div>
+    <p class="subtext">/FURNITURE/<br>Handcrafted wooden creations that bring warmth, durability, and timeless style to your home - from custom pieces and refinishing to unique designs that elevate any space.</p>
+
+    <div class="cta" aria-labelledby="cta-title">
+      <div>
+        <div class="eyebrow" style="color:#9ca3af">Get a Quote</div>
+        <h2 id="cta-title" style="margin:0 0 6px;font-weight:600">Tell us about your project</h2>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="#contact">Contact Us</a>
+        <a class="btn secondary" href="tel:+18325708833">Call (832) 570‑8833</a>
+      </div>
+    </div>
+
+
+    <div class="hero-images">
+      <img src="./images/website-project-photos/entertainment_center.jpg" alt="Image 1" loading="lazy" decoding="async">
+      <img src="./images/website-project-photos/dogKennel.JPG" alt="Image 2" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="about-heading">/ABOUT US/</div>
+    <div class="about-text">
+      In a fast-paced world, we return to the roots—literally. Using solid wood as our core material, we create furniture that is durable, beautiful, and deeply connected to nature.
+    </div>
+    <div class="about-content">
+      <div class="about-caption">
+        Premium wooden furniture designed to add warmth, strength, and timeless charm to your living space.
+      </div>
+      <div class="about-image">
+        <img src="./images/website-project-photos/lamp.JPG" alt="About Furniture" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <section class="highlight-section">
+    <div class="highlight-header">
+      <div>
+        <div class="highlight-heading">/HIGHLIGHT/</div>
+        <h2>Why Choose Our<br>Wooden Furniture</h2>
+      </div>
+      <div class="desc">
+        Our handcrafted wooden furniture and décor combine timeless design with exceptional durability. Each piece — from custom builds to expertly refinished heirlooms — is made to add warmth, character, and natural beauty to your home. With a focus on quality, sustainability, and craftsmanship, our wood creations offer a lasting, one-of-a-kind alternative to mass-produced furniture.
+      </div>
+    </div>
+    <div class="highlight-grid">
+      <div class="highlight-box">
+        <img src="./images/website-project-photos/table.jpg" alt="Icon 1" loading="lazy" decoding="async">
+        <h3>Expert Refinishing</h3>
+        <p>We breathe new life into existing pieces, restoring their natural beauty and extending their lifespan. From heirloom furniture to everyday items, our refinishing process transforms worn wood into timeless treasures.</p>
+      </div>
+      <div class="highlight-box">
+        <img src="./images/website-project-photos/spoon1.jpg" alt="Icon 2" loading="lazy" decoding="async">
+        <h3>Custom Wooden Creations</h3>
+        <p>From functional furniture to handcrafted home décor, each piece is thoughtfully designed and built with precision. Whether you need a custom table, shelving, or a unique accent piece, our creations are made to elevate any space.</p>
+      </div>
+      <div class="highlight-box">
+        <img src="./images/website-project-photos/lamp3.JPG" alt="Icon 3" loading="lazy" decoding="async">
+        <h3>Crafted for Your Home</h3>
+        <p>Every piece is created to seamlessly blend beauty and function. Whether it’s a daily-use item or a decorative accent, our wooden products add natural warmth and purpose to any space.</p>
+      </div>
+    </div>
+  </section>
+
+    <section class="about-section" id="contact">
+      <div class="about-heading">/CONTACT US/</div>
+      <div class="about-text">
+        We look forward to hearing about your project and working on it alongside with you! Please feel free to contact us so we can get started on your project's journey
+      </div>
+
+      <form class="contact-form">
+        <div class="input-group">
+          <input id="clientName" type="text" name="first-name" placeholder="FIRST NAME">
+          <input id="clientEmail" type="email" name="email" placeholder="E-MAIL">
+        </div>
+        <div class="input-group">
+        </div>
+        <div class="input-full">
+          <textarea id="clientMessage" name="message" placeholder="MESSAGE 
+
+  Tell us something about you and what you’re looking to collaborate on."></textarea>
+        </div>
+        <button id="sendMessageButton" type="submit" class="submit-btn" onclick="sendMessageOnClick()">Submit request →</button>
+      </form>
+
+    </section>
+  </div>
+  
+
+    <footer>
+    <div class="footer-logo"><img width="300px" src="./images/Mantis_Designs_Logo.png"></img></div>
+
+    <div class="footer-column">
+      <h4>● ○  INFO</h4>
+      <div>
+        <a href="./collection.html">Collections</a> ·
+        <a href="./services.html">Services</a> ·
+        <a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a> ·
+        <a href="./about.html">About</a>
+      </div>
+    </div>
+
+
+    <div class="footer-column footer-contact">
+      <h4>○ ●  CONTACT US</h4>
+      <a href="#">(832) 570-8833</a>
+      <a href="#">mario.dejesus@mantissoftware.io</a>
+      <a href="#">Get a call</a>
+    </div>
+
+
+
+    <div class="footer-bottom">
+      © 2025 — Copyright
+      <div class="social-icons">
+        <a href="https://www.instagram.com/mantis_wood_designs/"><img src="data:image/png;base64,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" alt="instagram-new--v1"></a>
+      </div>
+    </div>
+  </footer>
+</body>
+<script src="./script.js"></script>
+
+</html>

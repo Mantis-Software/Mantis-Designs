@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collections • Crafted by Nature</title>
+  <link rel="icon" type="image/x-icon" href="./images/White-MantisLogo.ico">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #111111;
+      --muted: #6b7280;
+      --card: #f8f8f8;
+      --ring: rgba(17, 17, 17, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    header.page-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin: 20px auto 12px; padding: 0 24px; max-width: 1200px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+    .brand img { width: 44px; height: 44px; object-fit: contain; }
+    .brand span { font-size: 20px; letter-spacing: 0.2px; }
+    .crumbs { font-size: 13px; color: var(--muted); }
+
+    h1 { font-weight: 500; font-size: 40px; letter-spacing: -0.4px; margin: 4px 0 24px; }
+    p.lede { color: #374151; max-width: 70ch; margin: 0 0 28px; }
+
+    /* Grid of cards */
+    .grid {
+      display: grid; gap: 22px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    @media (max-width: 1200px) {
+      .grid { grid-template-columns: repeat(8, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(6, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .viewer { height: min(70vh, 100vw); min-height: 320px; }
+    }
+    
+
+    .card {
+      grid-column: span 4;
+      background: var(--card);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(0,0,0,.02), 0 8px 24px -12px rgba(0,0,0,.2);
+      transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease;
+      outline: none;
+    }
+    .card:is(:hover, :focus-visible) {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 1px 0 rgba(0,0,0,.02), 0 18px 42px -16px rgba(0,0,0,.35);
+    }
+    .card-media {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: block;
+      object-fit: cover;
+      background: #e5e7eb;
+    }
+    .card-cap {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px 16px;
+      gap: 12px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.03) 100%);
+    }
+    .card-title { font-size: 16px; font-weight: 600; letter-spacing: .2px; }
+    .card-meta { font-size: 12px; color: var(--muted); }
+
+    /* Modal / Carousel */
+    .overlay {
+      position: fixed; inset: 0; display: none; z-index: 60;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(2px);
+    }
+    .overlay.open { display: grid; place-items: center; }
+
+    .dialog {
+      width: min(92vw, 1100px);
+      max-height: 90vh;
+      background: #0b0b0b;
+      color: #fff;
+      border-radius: 16px;
+      overflow: clip;
+      position: relative;
+      box-shadow: 0 30px 120px -30px rgba(0,0,0,.6);
+    }
+
+    .viewer {
+      position: relative;
+      width: 100%;
+      height: min(80vh, 72vw); /* ensures visible area even with absolutely positioned slides */
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      background: #000;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .slide { position: absolute; inset: 0; display: none; }
+    .slide.active { display: grid; place-items: center; }
+.slide img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 80vh;      /* ensures image always fits vertically */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+    .caption {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; gap: 12px; background: #0e0e0e;
+      border-top: 1px solid rgba(255,255,255,.06);
+      font-size: 14px;
+    }
+
+    .close-btn {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff; width: 40px; height: 40px; border-radius: 12px;
+      display: grid; place-items: center; cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .close-btn:hover { background: rgba(255,255,255,.14); transform: translateY(-1px); }
+
+    .nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff; display: grid; place-items: center; cursor: pointer;
+      transition: background .2s ease;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,.18); }
+    .nav-prev { left: 10px; }
+    .nav-next { right: 10px; }
+
+    .dots { display: flex; align-items: center; gap: 8px; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.25); border: none; cursor: pointer;
+    }
+    .dot.active { background: #fff; }
+
+    /* Focus ring */
+    .card:focus-visible, .close-btn:focus-visible, .nav-btn:focus-visible, .dot:focus-visible {
+      outline: 3px solid #0000; box-shadow: 0 0 0 4px var(--ring);
+    }
+
+    /* Utility icons */
+    .icon { width: 22px; height: 22px; display: inline-block; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+      /* --- Site navbar styles copied from your main site --- */
+    header.navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background-color: white;
+      border-bottom: 1px solid #e5e5e5;
+      position: relative;
+      z-index: 100;
+    }
+    .navbar .logo { font-size: 28px; }
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+    }
+    .navbar nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+      font-size: 16px;
+    }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+      width: 30px;
+      height: 24px;
+      gap: 6px;
+    }
+    .menu-toggle span {
+      height: 3px;
+      width: 100%;
+      background: black;
+    }
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      header.navbar nav { display: none; flex-direction: column; gap: 10px; position: absolute; top: 100%; right: 20px; background: white; padding: 20px; border: 1px solid #ddd; z-index: 1000; }
+      header.navbar nav.show { display: flex; }
+      .navbar nav ul { flex-direction: column; gap: 10px; }
+    }
+
+    /* Make carousel arrows larger and always visible */
+    .nav-btn { width: 56px; height: 56px; }
+    .nav-btn .icon { width: 24px; height: 24px; }
+    .nav-btn { opacity: 1; }
+      /* Pager buttons visible on all viewports */
+    .pager { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .page-btn { height: 28px; min-width: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: #fff; cursor: pointer; font-size: 12px; }
+    .page-btn.active { background: #fff; color: #000; border-color: #fff; }
+
+    /* Larger, always-visible arrows */
+    .nav-btn { width: 56px; height: 56px; opacity: 1; box-shadow: 0 8px 20px -8px rgba(0,0,0,.6); z-index: 5; }
+    .nav-btn .icon { width: 24px; height: 24px; }
+
+    footer{background:#f4f4f4;padding:60px 24px;color:#666;margin-top:60px}
+    footer .wrap{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+    a {
+      color: inherit;         /* or specify your own color like #000 or white */
+      text-decoration: none;  /* removes underline */
+    }
+
+    a:visited {
+      color: inherit;         /* removes purple color for visited links */
+    }
+
+    @media (max-width: 640px) { .viewer { height: 68vh; min-height: 360px; } }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><a href="./index.html" aria-label="Crafted by Nature home"><img width="200" src="./images/Mantis_Designs_Logo.png" alt="Crafted by Nature" /></a></div>
+    <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="siteNav">
+      <ul>
+        <li><a href="./collection.html" aria-current="page">Collections</a></li>
+        <li><a href="./services.html">Services</a></li>
+        <li><a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a></li>
+        <li><a href="./about.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Collections</h1>
+    <p class="lede">Explore our curated sets of handcrafted pieces. Click any card to open a manual carousel and browse details and alternate views. Close with the × or by clicking outside.</p>
+
+    <section class="grid" id="collectionsGrid">
+      <!-- Cards (example data). Replace images/titles as needed. -->
+
+      <article class="card" tabindex="0" data-key="entertainment" aria-label="Open Entertainment Centers Carousel">
+        <img class="card-media" src="./images/website-project-photos/entertainment_center.jpg" alt="Entertainment center preview" />
+        <div class="card-cap">
+          <div>
+            <div class="card-title">Entertainment Center</div>
+            <div class="card-meta">Solid wood storage & display</div>
+          </div>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" data-key="kennels" aria-label="Open Dog Kennels Carousel">
+        <img class="card-media" src="./images/website-project-photos/dogKennel.JPG" alt="Dog kennel preview" />
+        <div class="card-cap">
+          <div>
+            <div class="card-title">Dog Kennel</div>
+            <div class="card-meta">Pet-friendly, furniture-grade</div>
+          </div>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" data-key="lamps" aria-label="Open Lamps Carousel">
+        <img class="card-media" src="./images/website-project-photos/lamp.JPG" alt="Wooden lamp preview" />
+        <div class="card-cap">
+          <div>
+            <div class="card-title">Lamp</div>
+            <div class="card-meta">Warm light, natural grain</div>
+          </div>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" data-key="tables" aria-label="Open Tables Carousel">
+        <img class="card-media" src="./images/website-project-photos/table.jpg" alt="Dining table preview" />
+        <div class="card-cap">
+          <div>
+            <div class="card-title">Refinished - Table</div>
+            <div class="card-meta">Dining, coffee, side</div>
+          </div>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" data-key="spoons" aria-label="Open Kitchenware Carousel">
+        <img class="card-media" src="./images/website-project-photos/spoon1.jpg" alt="Wooden spoon preview" />
+        <div class="card-cap">
+          <div>
+            <div class="card-title">Kitchenware</div>
+            <div class="card-meta">Spoons, spatulas & more</div>
+          </div>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- Modal / Carousel -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+      <button class="close-btn" id="closeBtn" aria-label="Close">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="viewer" id="viewer" tabindex="-1">
+        <!-- Slides injected here -->
+        <button class="nav-btn nav-prev" id="btnPrev" aria-label="Previous image">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="nav-btn nav-next" id="btnNext" aria-label="Next image">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="caption">
+        <div id="dlgTitle">Collection</div>
+        <div class="pager" id="pager"></div>
+        <div style="margin-left:auto; display:flex; gap:8px;">
+          <button class="page-btn" id="btnPrevText" aria-label="Previous image">Prev</button>
+          <button class="page-btn" id="btnNextText" aria-label="Next image">Next</button>
+        </div>
+      </div>
+        <div class="dots" id="dots"></div>
+      </div>
+    </div>
+  </div>
+
+    <footer>
+    <div class="wrap">
+      <div>© 2025 Crafted by Nature</div>
+      <div>
+      <div>
+        <a href="./collection.html">Collections</a> ·
+        <a href="./services.html">Services</a> ·
+        <a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a> ·
+        <a href="./about.html">About</a>
+      </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+  <script>
+(() => {
+  // Mobile menu toggle (match main site behavior)
+  const menuToggle = document.getElementById('menuToggle');
+  const siteNav = document.getElementById('siteNav');
+  if (menuToggle && siteNav) {
+    function toggleNav(){ siteNav.classList.toggle('show'); }
+    menuToggle.addEventListener('click', toggleNav);
+    menuToggle.addEventListener('keydown', (e)=>{
+      if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggleNav(); }
+    });
+  }
+
+  // --- Collections data ---
+  const COLLECTIONS = {
+    entertainment: {
+      title: 'Entertainment Centers',
+      images: [
+        './images/website-project-photos/entertainment_center.jpg',
+        './images/website-project-photos/IMG_7745.JPG',
+      ]
+    },
+    kennels: {
+      title: 'Dog Kennels',
+      images: [
+        './images/website-project-photos/dogKennel.JPG',
+        './images/website-project-photos/dogKennel2.JPG',
+        './images/website-project-photos/dogKennel3.JPG',
+        './images/website-project-photos/dogKennel4.JPG'
+      ]
+    },
+    lamps: {
+      title: 'Lamps',
+      images: [
+        './images/website-project-photos/lamp.JPG',
+        './images/website-project-photos/lamp2.JPG',
+        './images/website-project-photos/lamp3.JPG',
+        './images/website-project-photos/lamp4.JPG'
+
+      ]
+    },
+    tables: {
+      title: 'Tables',
+      images: [
+        './images/website-project-photos/table.jpg',
+      ]
+    },
+    spoons: {
+      title: 'Kitchenware',
+      images: [
+        './images/website-project-photos/spoon1.jpg',
+        './images/website-project-photos/spoon2.jpg'
+      ]
+    },
+    custom: {
+      title: 'Custom Builds',
+      images: [
+        './images/website-project-photos/lamp3.JPG',
+        './images/website-project-photos/lamp.JPG'
+      ]
+    }
+  };
+
+  // --- DOM refs ---
+  const $grid = document.getElementById('collectionsGrid');
+  const $overlay = document.getElementById('overlay');
+  const $viewer = document.getElementById('viewer');
+  const $pager = document.getElementById('pager');
+  const $title = document.getElementById('dlgTitle');
+  const $close = document.getElementById('closeBtn');
+  const $prev = document.getElementById('btnPrev');
+  const $next = document.getElementById('btnNext');
+  const $prevText = document.getElementById('btnPrevText');
+  const $nextText = document.getElementById('btnNextText');
+
+  let current = { key: null, index: 0, images: [] };
+
+  function openDialog(key) {
+    const data = COLLECTIONS[key];
+    if (!data) return;
+    current = { key, index: 0, images: data.images.slice() };
+    $title.textContent = data.title;
+
+    // Build slides
+    [...$viewer.querySelectorAll('.slide')].forEach(el => el.remove());
+    if ($pager) $pager.innerHTML = '';
+
+    current.images.forEach((src, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'slide' + (i === 0 ? ' active' : '');
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = data.title + ' image ' + (i+1);
+      slide.appendChild(img);
+      $viewer.appendChild(slide);
+
+      if ($pager) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (i === 0 ? ' active' : '');
+        btn.textContent = String(i + 1);
+        btn.setAttribute('aria-label', 'Go to image ' + (i+1));
+        btn.addEventListener('click', () => goTo(i));
+        $pager.appendChild(btn);
+      }
+    });
+
+    $overlay.classList.add('open');
+    $overlay.setAttribute('aria-hidden', 'false');
+    $viewer.focus({ preventScroll: true });
+    document.addEventListener('keydown', onKey);
+  }
+
+  function closeDialog() {
+    $overlay.classList.remove('open');
+    $overlay.setAttribute('aria-hidden', 'true');
+    document.removeEventListener('keydown', onKey);
+    current = { key: null, index: 0, images: [] };
+  }
+
+  function goTo(i) {
+    const slides = Array.from($viewer.querySelectorAll('.slide'));
+    const buttons = $pager ? Array.from($pager.querySelectorAll('.page-btn')) : [];
+    if (!slides.length) return;
+    slides.forEach(s => s.classList.remove('active'));
+    buttons.forEach(b => b.classList.remove('active'));
+    current.index = (i + slides.length) % slides.length;
+    slides[current.index].classList.add('active');
+    if (buttons[current.index]) buttons[current.index].classList.add('active');
+  }
+
+  function next(n) {
+    goTo(current.index + (typeof n === 'number' ? n : 1));
+  }
+
+  function onKey(e) {
+    if (e.key === 'Escape') closeDialog();
+    else if (e.key === 'ArrowRight') next(1);
+    else if (e.key === 'ArrowLeft') next(-1);
+  }
+
+  // Card interactions
+  if ($grid) {
+    $grid.addEventListener('click', (e) => {
+      const card = e.target.closest('.card');
+      if (card && $grid.contains(card)) {
+        openDialog(card.dataset.key);
+      }
+    });
+    $grid.addEventListener('keydown', (e) => {
+      const target = e.target;
+      if ((e.key === 'Enter' || e.key === ' ') && target.classList.contains('card')) {
+        e.preventDefault();
+        openDialog(target.dataset.key);
+      }
+    });
+  }
+
+  // Modal controls
+  if ($close) $close.addEventListener('click', closeDialog);
+  if ($prev) $prev.addEventListener('click', () => next(-1));
+  if ($next) $next.addEventListener('click', () => next(1));
+  if ($prevText) $prevText.addEventListener('click', () => next(-1));
+  if ($nextText) $nextText.addEventListener('click', () => next(1));
+
+  // Click outside dialog to close
+  $overlay.addEventListener('mousedown', (e) => {
+    if (e.target === $overlay) closeDialog();
+  });
+
+  // Basic swipe support for touch devices
+  (function addSwipe(el) {
+    if (!el) return;
+    let x0 = null;
+    el.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    el.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) { if (dx < 0) next(1); else next(-1); }
+      x0 = null;
+    }, { passive: true });
+  })($viewer);
+
+  // Helpful titles
+  if ($prev) $prev.title = 'Previous (←)';
+  if ($next) $next.title = 'Next (→)';
+})();
+</script>
+</body>
+</html>

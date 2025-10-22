@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us • Crafted by Nature</title>
+  <link rel="icon" type="image/x-icon" href="./images/White-MantisLogo.ico">
+  <meta name="description" content="Crafted by Nature is a small studio focused on refinishing and custom woodwork—furniture, cookware, and 3D‑print integrations—for thoughtful, durable pieces." />
+  <style>
+    :root { --ink:#111; --muted:#6b7280; --bg:#fff; --card:#f8f8f8; --ring:rgba(17,17,17,.08);} 
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--ink);background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+
+    /* Navbar (match site) */
+    header.navbar{display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:#fff;border-bottom:1px solid #e5e5e5;position:relative;z-index:100}
+    .navbar .logo{font-size:28px}
+    .navbar nav ul{list-style:none;display:flex;gap:40px}
+    .navbar nav ul li a{font-weight:500;font-size:16px}
+    .menu-toggle{display:none;flex-direction:column;justify-content:center;cursor:pointer;width:30px;height:24px;gap:6px}
+    .menu-toggle span{height:3px;width:100%;background:#000}
+    @media (max-width:768px){
+      .menu-toggle{display:flex}
+      header.navbar nav{display:none;flex-direction:column;gap:10px;position:absolute;top:100%;right:20px;background:#fff;padding:20px;border:1px solid #ddd;z-index:1000}
+      header.navbar nav.show{display:flex}
+      .navbar nav ul{flex-direction:column;gap:10px}
+      header.navbar{padding:16px 20px}
+    }
+
+    .container{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
+    .hero{padding:60px 0 24px}
+    .eyebrow{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:12px;margin-bottom:8px}
+    h1{font-size:40px;font-weight:500;letter-spacing:-.02em;margin:0 0 10px}
+    .lede{color:#374151;max-width:70ch;margin:8px 0 28px}
+
+    /* Story split */
+    .split{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;align-items:center;margin:12px 0 32px}
+    .split .text{grid-column:span 7}
+    .split .media{grid-column:span 5}
+    .split .media img{width:100%;border-radius:16px;display:block}
+    @media (max-width:900px){.split .text,.split .media{grid-column:span 12}}
+
+    /* Values */
+    .values{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;margin:30px 0 10px}
+    .value{grid-column:span 4;background:var(--card);border-radius:14px;padding:18px 16px;box-shadow:0 8px 28px -18px rgba(0,0,0,.35)}
+    .value h3{margin:0 0 6px;font-weight:600}
+    .value p{margin:0;color:#444}
+    @media (max-width:900px){.value{grid-column:span 12}}
+
+    /* Timeline */
+    .timeline{margin:34px 0}
+    .trow{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 0;border-top:1px solid #eee}
+    .trow:last-child{border-bottom:1px solid #eee}
+    .trow .year{color:#6b7280;font-weight:600}
+    .trow p{margin:0;color:#374151}
+
+    /* Materials grid */
+    .materials{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;margin:28px 0}
+    .mat{grid-column:span 3;background:#0b0b0b;color:#fff;border-radius:14px;overflow:hidden}
+    .mat img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+    .mat div{padding:10px 12px;font-size:14px}
+    @media (max-width:1000px){.mat{grid-column:span 6}}
+    @media (max-width:640px){.mat{grid-column:span 12}}
+
+    /* Testimonial */
+    .quote{background:#111;color:#fff;border-radius:18px;padding:22px 20px;box-shadow:0 20px 60px -30px rgba(0,0,0,.6);margin:24px 0}
+    .quote p{margin:0;color:#e5e7eb}
+    .quote .who{margin-top:8px;color:#cbd5e1;font-size:14px}
+
+    /* CTA */
+    .cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between;background:#111;color:#fff;border-radius:18px;padding:24px 24px;margin-top:40px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:999px;border:1px solid #111;background:#fff;color:#111;font-weight:600;cursor:pointer}
+    .btn.secondary{background:transparent;color:#fff;border-color:#fff}
+
+    footer{background:#f4f4f4;padding:60px 24px;color:#666;margin-top:60px}
+    footer .wrap{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+    :is(a,button):focus-visible{outline:none;box-shadow:0 0 0 4px var(--ring)}
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    img {
+      animation: fade-in 10.0s ease both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo"><a href="./index.html"><img width="200" src="./images/Mantis_Designs_Logo.png" alt="Crafted by Nature"/></a></div>
+    <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" tabindex="0"><span></span><span></span><span></span></div>
+    <nav id="siteNav">
+      <ul>
+        <li><a href="./collection.html">Collections</a></li>
+        <li><a href="./services.html">Services</a></li>
+        <li><a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a></li>
+        <li><a href="./about.html" aria-current="page">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">/ About Us /</div>
+      <h1>Rooted in craft. Built for real life.</h1>
+      <p class="lede">We’re a small, hands‑on studio creating durable wood pieces with clean lines and warm character. From patient <strong>refinishing</strong> to fully <strong>custom builds</strong>—and smart <strong>3D‑print integrations</strong> where they make sense—we design for everyday use, not just showrooms.</p>
+    </section>
+
+    <section class="split">
+      <div class="text">
+        <h2 style="margin:0 0 10px;font-weight:500">Our Story</h2>
+        <p>Mantis Designs started with a simple belief: the objects you live with should work, feel good, and last. We combine traditional joinery with modern tooling—and when a problem calls for it, we’ll design a tidy 3D‑printed part to solve it elegantly.</p>
+        <p>Most projects begin with a conversation and a sketch. We visit spaces, take measurements, test finishes, and source hardwoods thoughtfully. The result is a piece that feels like it has always belonged in your home.</p>
+      </div>
+      <div class="media">
+        <img src="./images/website-project-photos/lamp3.JPG" alt="In the workshop" loading="lazy" decoding="async"/>
+      </div>
+    </section>
+
+    <section class="values" aria-label="Studio values">
+      <article class="value">
+        <h3>Honest Materials</h3>
+        <p>We favor solid hardwoods and finishes chosen for longevity and feel. No gimmicks—just well‑made parts.</p>
+      </article>
+      <article class="value">
+        <h3>Thoughtful Details</h3>
+        <p>Clean proportions, smooth edges, and joinery that stands up to daily use.</p>
+      </article>
+      <article class="value">
+        <h3>Collaborative Design</h3>
+        <p>Your routines shape the work—storage, cable paths, or custom cookware features.</p>
+      </article>
+    </section>
+
+    <!--
+    <section class="timeline" aria-label="Milestones">
+      <div class="trow"><div class="year">2022</div><p>First commissions and refinishing projects. Focus on process and finishing systems.</p></div>
+      <div class="trow"><div class="year">2023</div><p>Expanded to custom furniture and cookware; began integrating select 3D‑printed hardware.</p></div>
+      <div class="trow"><div class="year">2024</div><p>Built larger pieces (media consoles, kennel furniture) and refined on‑site install workflow.</p></div>
+      <div class="trow"><div class="year">2025</div><p>Formalized two core offerings: <em>Refinishing</em> and <em>Custom Pieces</em>.</p></div>
+    </section> -->
+    <br>
+
+    <section>
+      <h2 style="font-weight:500;margin:18px 0 8px">Materials & Finishes</h2>
+      <p class="lede" style="margin-top:0">We select woods for grain and performance, then pair them with the right finish for the job.</p>
+      <div class="materials">
+        <div class="mat"><img src="./images/website-project-photos/table.jpg" alt="Oak" loading="lazy" decoding="async"/><div>Oak • Strong grain, classic look</div></div>
+        <div class="mat"><img src="./images/website-project-photos/entertainment_center.jpg" alt="Walnut" loading="lazy" decoding="async"/><div>Stained Maple • Warm and modern</div></div>
+        <div class="mat"><img src="./images/website-project-photos/spoon1.jpg" alt="Cherry" loading="lazy" decoding="async"/><div>Cherry • Deepens beautifully with age</div></div>
+        <div class="mat"><img src="./images/website-project-photos/lamp.JPG" alt="Maple" loading="lazy" decoding="async"/><div>Stained Birch • Smooth, light, durable</div></div>
+      </div>
+    </section>
+
+    <!--
+    <section class="quote" aria-label="Client testimonial">
+      <p>“They listened, matched my current furniture color perfectly, and built a media console that resembles my previous one, but with my new measurements I requested. I would highly recommed!”</p>
+      <div class="who">— A.C., San Antonio</div>
+    </section>-->
+
+    <section class="cta" aria-labelledby="cta-title">
+      <div>
+        <div class="eyebrow" style="color:#9ca3af">Work With Us</div>
+        <h2 id="cta-title" style="margin:0 0 6px;font-weight:600">Have a piece in mind?</h2>
+        <p style="margin:0;color:#e5e7eb">Send measurements and inspiration—we’ll reply with options and a ballpark estimate.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="./index.html#contact">Contact Us</a>
+        <a class="btn secondary" href="tel:+18325708833">Call (832) 570‑8833</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© 2025 Crafted by Nature</div>
+      <div>
+      <div>
+        <a href="./collection.html">Collections</a> ·
+        <a href="./services.html">Services</a> ·
+        <a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a> ·
+        <a href="./about.html">About</a>
+      </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const siteNav = document.getElementById('siteNav');
+    if (menuToggle && siteNav) {
+      const toggle = () => siteNav.classList.toggle('show');
+      menuToggle.addEventListener('click', toggle);
+      menuToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
+    }
+  </script>
+</body>
+</html>
