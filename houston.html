@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Houston • Mantis Designs</title>
+  <meta
+    name="description"
+    content="Mantis Designs proudly services Houston, TX with custom wooden furniture, refinishing, and modern 3D‑print integrations for homes and businesses. On‑site measurements, pickup, delivery, and installs across Greater Houston." />
+
+  <link rel="icon" type="image/x-icon" href="./images/White-MantisLogo.ico">
+  <link rel="canonical" href="https://mantisdesigns.net/service-areas/houston.html" />
+  <style>
+    :root { --ink:#111; --muted:#6b7280; --bg:#fff; --card:#f8f8f8; --ring:rgba(17,17,17,.08);} 
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--ink);background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+
+    /* Navbar (match site) */
+    header.navbar{display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:#fff;border-bottom:1px solid #e5e5e5;position:relative;z-index:100}
+    .navbar .logo{font-size:28px}
+    .navbar nav ul{list-style:none;display:flex;gap:40px}
+    .navbar nav ul li a{font-weight:500;font-size:16px}
+    .menu-toggle{display:none;flex-direction:column;justify-content:center;cursor:pointer;width:30px;height:24px;gap:6px}
+    .menu-toggle span{height:3px;width:100%;background:#000}
+    @media (max-width:768px){
+      .menu-toggle{display:flex}
+      header.navbar nav{display:none;flex-direction:column;gap:10px;position:absolute;top:100%;right:20px;background:#fff;padding:20px;border:1px solid #ddd;z-index:1000}
+      header.navbar nav.show{display:flex}
+      .navbar nav ul{flex-direction:column;gap:10px}
+      header.navbar{padding:16px 20px}
+    }
+
+    .container{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
+    .hero{padding:60px 0 24px}
+    .eyebrow{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:12px;margin-bottom:8px}
+    h1{font-size:40px;font-weight:500;letter-spacing:-.02em;margin:0 0 10px}
+    .lede{color:#374151;max-width:70ch;margin:8px 0 28px}
+
+    /* Split */
+    .split{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;align-items:center;margin:12px 0 32px}
+    .split .text{grid-column:span 12}
+    @media (max-width:900px){.split .text{grid-column:span 12}}
+
+    /* Cards */
+    .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;margin:30px 0 10px}
+    .card{grid-column:span 6;background:var(--card);border-radius:14px;padding:18px 16px;box-shadow:0 8px 28px -18px rgba(0,0,0,.35)}
+    .card h3{margin:0 0 6px;font-weight:600}
+    .card p{margin:0;color:#444}
+    @media (max-width:900px){.card{grid-column:span 12}}
+
+    /* Pill list */
+    .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .pill{border:1px solid #e5e5e5;border-radius:999px;padding:6px 10px;font-size:13px;color:#374151;background:#fff}
+
+    /* FAQ */
+    .faq{margin:24px 0}
+    .qa{display:grid;grid-template-columns:160px 1fr;gap:16px;padding:14px 0;border-top:1px solid #eee}
+    .qa:last-child{border-bottom:1px solid #eee}
+    .qa .q{color:#6b7280;font-weight:600}
+    .qa p{margin:0;color:#374151}
+
+    /* CTA */
+    .cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between;background:#111;color:#fff;border-radius:18px;padding:24px 24px;margin-top:40px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:999px;border:1px solid #111;background:#fff;color:#111;font-weight:600;cursor:pointer}
+    .btn.secondary{background:transparent;color:#fff;border-color:#fff}
+
+    footer{background:#f4f4f4;padding:60px 24px;color:#666;margin-top:60px}
+    footer .wrap{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+    :is(a,button):focus-visible{outline:none;box-shadow:0 0 0 4px var(--ring)}
+
+    @keyframes fade-in { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+    img { animation: fade-in 1.0s ease both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo"><a href="./index.html"><img width="200" src="./images/Mantis_Designs_Logo.png" alt="mantis designs logo"/></a></div>
+    <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" tabindex="0"><span></span><span></span><span></span></div>
+    <nav id="siteNav">
+      <ul>
+        <li><a href="./collection.html">Collections</a></li>
+        <li><a href="./services.html">Services</a></li>
+        <li><a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a></li>
+        <li><a href="./about.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">/ Service Area /</div>
+      <h1>Custom Woodworking in Houston, TX</h1>
+      <p class="lede">We bring <strong>custom pieces</strong> and <strong>refinishing</strong> to homes and businesses across Greater San Antonio. We handle on‑site measurements, pickup, delivery, and installs - so the process is simple from first sketch to final fit.</p>
+    </section>
+
+    <section class="split">
+      <div class="text">
+        <h2 style="margin:0 0 10px;font-weight:500">Serving Greater Houston</h2>
+        <p>Based in Texas with regular Houston project days. Whether you need a perfect <em>color match</em> or a fully custom build for a specific space, we design, sample, and finish for Gulf Coast living.</p>
+        <div class="pills" aria-label="Neighborhoods">
+          <span class="pill">Downtown</span>
+          <span class="pill">Montrose</span>
+          <span class="pill">The Heights</span>
+          <span class="pill">River Oaks</span>
+          <span class="pill">West University</span>
+          <span class="pill">Bellaire</span>
+          <span class="pill">Memorial</span>
+          <span class="pill">Uptown / Galleria</span>
+          <span class="pill">Midtown</span>
+          <span class="pill">EaDo</span>
+          <span class="pill">Spring Branch</span>
+          <span class="pill">Cypress</span>
+          <span class="pill">Katy</span>
+          <span class="pill">Sugar Land</span>
+          <span class="pill">Pearland</span>
+          <span class="pill">The Woodlands</span>
+          <span class="pill">Spring</span>
+          <span class="pill">Kingwood</span>
+          <span class="pill">Pasadena</span>
+          <span class="pill">Clear Lake</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards" aria-label="What we do">
+      <article class="card">
+        <h3>Custom Pieces</h3>
+        <p>Tables, media walls, vanities, built‑ins, floating shelves, reception desks, and more - designed around your space and workflow.</p>
+      </article>
+      <article class="card">
+        <h3>Refinishing & Restoration</h3>
+        <p>Color matching, repairs, protective topcoats, and careful touch‑ups to extend the life of the furniture you love.</p>
+      </article>
+      <article class="card">
+        <h3>Commercial Projects</h3>
+        <p>Durable millwork for restaurants, retail, and offices. We coordinate installs around business hours.</p>
+      </article>
+      <article class="card">
+        <h3>3D‑Print Integrations</h3>
+        <p>Smart brackets, organizers, pulls, and fixtures that add function without sacrificing clean lines.</p>
+      </article>
+    </section>
+
+    <section class="faq" aria-label="FAQs">
+      <div class="qa"><div class="q">Travel fees?</div><p>Small site ‑ visit fees may apply based on distance and scope; we’ll include it in the quote - often credited toward the project.</p></div>
+      <div class="qa"><div class="q">Lead times?</div><p>Consults are typically available within a few days. Start dates depend on materials and scope.</p></div>
+      <div class="qa"><div class="q">Color matching?</div><p>Yes. Share photos in natural light and any brand/stain info; we sample on the actual species for accuracy.</p></div>
+      <div class="qa"><div class="q">Commercial work?</div><p>Absolutely. We build for high‑traffic use and can schedule after‑hours installs.</p></div>
+    </section>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <div>
+        <div class="eyebrow" style="color:#9ca3af">Work With Us</div>
+        <h2 id="cta-title" style="margin:0 0 6px;font-weight:600">Have a San Antonio project in mind?</h2>
+        <p style="margin:0;color:#e5e7eb">Send measurements and inspiration — we’ll reply with options and a price estimate.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="./index.html#contact">Contact Us</a>
+        <a class="btn secondary" href="tel:+18325708833">Call (832) 570‑8833</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© 2025 Mantis Designs</div>
+      <div>
+        <a href="./collection.html">Collections</a> ·
+        <a href="./services.html">Services</a> ·
+        <a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a> ·
+        <a href="./about.html">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const siteNav = document.getElementById('siteNav');
+    if (menuToggle && siteNav) {
+      const toggle = () => siteNav.classList.toggle('show');
+      menuToggle.addEventListener('click', toggle);
+      menuToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
+    }
+  </script>
+</body>
+</html>
