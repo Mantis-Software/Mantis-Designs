@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>San Antonio • Mantis Designs</title>
+  <title>Wall Designs & Decor</title>
   <meta
     name="description"
-    content="Mantis Designs creates beautiful wood wall panels and decor for your home or resturant walls. We service Houston, San Antonio, Austin, and Minnesota." />
+    content="Mantis Designs creates beautiful wood wall designs and decor for your home or business. We service Texas and Minnesota." />
 
   <link rel="icon" type="image/x-icon" href="./images/White-MantisLogo.ico">
   <link rel="canonical" href="https://mantisdesigns.net/service-areas/san-antonio.html" />
@@ -92,6 +92,110 @@
 
     @keyframes fade-in { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
     img { animation: fade-in 1.0s ease both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+    .hero2, .about-secton{
+      padding: 100px 60px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .hero2 h1 { font-size: 64px; font-weight: 400; margin-bottom: 30px; line-height: 1.2; }
+    .hero2 .subtext { font-size: 16px; color: #444; max-width: 380px; text-align: right; align-self: flex-end; }
+
+
+    .about-heading { color: #777; font-size: 14px; text-transform: uppercase; margin-bottom: 10px; }
+    .about-text { font-size: 36px; font-weight: 400; line-height: 1.4; max-width: 900px; }
+    .about-content { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+    .about-caption { font-size: 14px; color: #333; max-width: 300px; }
+    .about-image img { width: 100%; max-width: 700px; object-fit: cover; }
+
+    .input-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .input-group input, .input-full textarea {
+      flex: 1 1 250px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-bottom: 1px solid #111;
+      outline: none;
+    }
+
+    .input-full textarea {
+      width: 100%;
+      min-height: 100px;
+      resize: none;
+    }
+
+    .submit-btn {
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      background: #000;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #333;
+    }
+
+
+    .collection-header, .highlight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    h2 {
+      font-size: 40px;
+      font-weight: 400;
+    }
+    .collection-header .tag, .highlight-heading {
+      color: #777;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .collection-header .desc, .highlight-header .desc {
+      font-size: 14px;
+      color: #333;
+      max-width: 300px;
+      text-align: right;
+    }
+    .collection-grid, .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .collection-item, .highlight-box {
+      position: relative;
+      overflow: hidden;
+      background: #f8f8f8;
+      padding: 40px 30px;
+      text-align: center;
+    }
+    .collection-item img, .highlight-box img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .highlight-box img { height: 300px; margin-bottom: 20px; }
+    .highlight-box h3 { font-size: 18px; margin-bottom: 10px; }
+    .highlight-box p { font-size: 14px; color: #444; }
+    .highlight-header .desc {
+      font-size: 14px;
+      color: #333;
+      max-width: 300px;
+      text-align: right;
+    }
+    .highlight-heading { color: #777; font-size: 14px; text-transform: uppercase; margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -109,34 +213,62 @@
     </nav>
   </header>
 
+  
+
   <main class="container">
-    <section class="hero">
-      <div class="eyebrow">/ Wood Wall Panel /</div>
-      <h1>Custom Wood Wall Panel Decor</h1>
-      <p class="lede">We design and build custom wood wall panel decor in Houston, Austin, San Antonio, and Minnesota tailored to you and your home. Unlike the current mass produced wood wall panels, we elevate our designs by using the best quality wood with different colors along with unique designs.</p>
-    </section>
+    <section class="hero2">
+    <div class="hero-text">
+      <h1>Custom Wall Designs & Decor, <br>Created For You</h1>
+    </div>
+    <p class="subtext">/ Designs & Decor /<br>Handcrafted designs for your home, shop, or resturant. Impress everyone and introduce your personality and character through your space with your unique designs!</p>
 
-    <section class="split wall-images">
-      <div class="text">
-        <h2 style="margin:0 0 10px;font-weight:500">Acoustic Wood Slats Wall</h2>
-        <p>One of our clients wanted to have a professional grade acoustic wall, so we aimed to have the best quality materials with professional grade acoustic insulation.</p>
-        <img src="./images/website-project-photos/wall_strip6.jpg" width="700px"></img>
-        <p class="description-text"> * Acoustic wall frame to support wooden strips and house the acoustic insulation.</p>
-        <br>
-        <img src="./images/website-project-photos/wall_strip7.jpg" width="700px"></img>
-        <p class="description-text"> * Denim insulation used for the sound absorbtion. This insulation also does not irritate the skin as it is made from recycled denim from clothes.</p>
-        <br>
-        <img src="./images/website-project-photos/wall_strip8.jpg" width="700px"></img>
-        <p class="description-text"> * A breathable black fabric was used to allow for sound absorbtion along with fitting with the color scheme the clients wanted.</p>
-        <br>
-        <img src="./images/website-project-photos/wall_strip2.JPG" width="700px"></img> 
-        <img src="./images/website-project-photos/wall_strip3.JPG" width="700px"></img> 
-        <img src="./images/website-project-photos/wall_strip4.JPG" width="700px"></img> 
-        <img src="./images/website-project-photos/wall_strip5.JPG" width="700px"></img> 
+    <div class="cta" aria-labelledby="cta-title">
+      <div>
+        <div class="eyebrow" style="color:#9ca3af">Get a Quote</div>
+        <h2 id="cta-title" style="margin:0 0 6px;font-weight:600">Tell us about your project</h2>
       </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="./index.html#contact">Contact Us</a>
+        <a class="btn secondary" href="tel:+18325708833">Call (832) 570‑8833</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">/ Wall Designs /</div>
+      <h1>Custom Wood Wall Desgin</h1>
+      <p class="lede">We design and build custom wood wall designs and decor in Houston, Austin, San Antonio, and Minnesota tailored to you and your home. Unlike the current mass produced wood wall panels, we elevate our designs by using the best quality wood with different colors along with unique designs personalized for you and your needs.</p>
     </section>
 
-    <h1>Why get our Wall Panels?</h1>
+  <section class="highlight-section">
+    <div class="highlight-header">
+      <div>
+        <div class="highlight-heading">/HIGHLIGHT/</div>
+        <h2>Why Choose Our<br>Designs?</h2>
+      </div>
+      <div class="desc">
+        Our goal at Mantis Designs is to create beautiful walls that fit your style and needs, while staying in your budget. We offer many solutions on how to get your piece done and work closely with you until you are satisfied.
+      </div>
+    </div>
+    <div class="highlight-grid">
+      <div class="highlight-box">
+        <img src="./images/website-project-photos/wall_strip7.jpg" alt="Acoustic wall frame to support wooden strips and house the acoustic insulation." loading="lazy" decoding="async">
+        <h3>Functionality</h3>
+        <p>Whether you want your wall to have a function like absorbing sound, providing light, or providing storage, we can incorporate the function(s) within your wall designs.</p>
+      </div>
+      <div class="highlight-box">
+        <img src="./images/website-project-photos/budget_veneer.jpg" alt="custom wooden spoon" loading="lazy" decoding="async">
+        <h3>Budget</h3>
+        <p>If the budget is an issue, we offer various creative solutions to get the same design and quality all for a lower cost. </p>
+      </div>
+      <div class="highlight-box">
+        <img src="./images/website-project-photos/wall_strip5.JPG" alt="custom wooden lamp with 3d printing" loading="lazy" decoding="async">
+        <h3>Beauty & Quality</h3>
+        <p>At the end of the day our walls stand out and are a statement piece in any home or business space, so we care on how it design looks so other can marvel at your new beauty found within your home or business.</p>
+      </div>
+    </div>
+  </section>
+
+    <h2>Why Choose Our Wall Designs & Decor?</h2>
 
     <section class="cards" aria-label="What we do">
       <article class="card">
@@ -157,6 +289,7 @@
       </article>
     </section>
 
+    <!--
     <section class="cta" aria-labelledby="cta-title">
       <div>
         <div class="eyebrow" style="color:#9ca3af">Work With Us</div>
@@ -168,6 +301,33 @@
         <a class="btn secondary" href="tel:+18325708833">Call (832) 570‑8833</a>
       </div>
     </section>
+
+    -->
+
+    <br>
+
+    <section class="about-section" id="contact">
+      <div class="about-heading">/CONTACT US/</div>
+      <div class="about-text">
+        We look forward to hearing about your project and working on it alongside with you! Please feel free to contact us so we can get started on your project's journey
+      </div>
+
+      <form class="contact-form">
+        <div class="input-group">
+          <input id="clientName" type="text" name="first-name" placeholder="FIRST NAME">
+          <input id="clientEmail" type="email" name="email" placeholder="E-MAIL">
+        </div>
+        <div class="input-group">
+        </div>
+        <div class="input-full">
+          <textarea id="clientMessage" name="message" placeholder="MESSAGE 
+
+  Tell us something about you and what you’re looking to collaborate on."></textarea>
+        </div>
+        <button id="sendMessageButton" type="submit" class="submit-btn" onclick="sendMessageOnClick()">Submit request →</button>
+      </form>
+
+    </section>
   </main>
 
   <footer>
@@ -178,7 +338,7 @@
         <a href="./services.html">Services</a> ·
         <a href="https://www.etsy.com/shop/MantisDesignsStudio?ref=profile_header">Products</a> ·
         <a href="./about.html">About</a> ·
-        <a href="./wall_decor.html">Wood Wall Panels</a>
+        <a href="./wall_decor.html">Wood Wall Designs & Decor</a>
       </div>
     </div>
   </footer>
@@ -194,4 +354,6 @@
     }
   </script>
 </body>
+<script src="./script.js"></script>
+
 </html>
