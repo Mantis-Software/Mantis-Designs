@@ -428,17 +428,17 @@
             <p class="price-text">$25</p>
         </div>
         <div class="display-image-container">
-            <img class="display-image" src="./images/shop/utensils/utensil1.jpg" >
+            <img class="display-image asyncImage" src="./images/shop/utensils_low/utensil1.webp" data-src="./images/shop/utensils/utensil1.jpg">
             <br>
             <br>
             <div class="image-previews-container">
-                <div onclick="replace_display_image('utensil1.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil1.jpg" ></div>
-                <div onclick="replace_display_image('utensil2.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil2.jpg" ></div>
-                <div onclick="replace_display_image('utensil3.avif')"><img class="image-preview" src="./images/shop/utensils/utensil3.avif" ></div>
-                <div onclick="replace_display_image('utensil4.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil4.jpg" ></div>
-                <div onclick="replace_display_image('utensil5.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil5.jpg" ></div>
-                <div onclick="replace_display_image('utensil6.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil6.jpg" ></div>
-                <div onclick="replace_display_image('utensil7.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil7.jpg" ></div>
+                <div onclick="replace_display_image('utensil1.jpg')"><img class="image-preview asyncImage" src="./images/shop/utensils_low/utensil1.webp" data-src="./images/shop/utensils/utensil1.jpg" ></div>
+                <div onclick="replace_display_image('utensil2.jpg')"><img class="image-preview asyncImage" src="./images/shop/utensils_low/utensil2.webp" data-src="./images/shop/utensils/utensil2.jpg" ></div>
+                <div onclick="replace_display_image('utensil3.avif')"><img class="image-preview asyncImage" src="./images/shop/utensils_low/utensil3.webp" data-src="./images/shop/utensils/utensil3.avif" ></div>
+                <div onclick="replace_display_image('utensil4.jpg')"><img class="image-preview asyncImage" src="./images/shop/utensils_low/utensil4.webp" data-src="./images/shop/utensils/utensil4.jpg" ></div>
+                <div onclick="replace_display_image('utensil5.jpg')"><img class="image-preview asyncImage" src="./images/shop/utensils_low/utensil5.webp" data-src="./images/shop/utensils/utensil5.jpg" ></div>
+                <div onclick="replace_display_image('utensil6.jpg')"><img class="image-preview asyncImage" src="./images/shop/utensils_low/utensil6.webp" data-src="./images/shop/utensils/utensil6.jpg" ></div>
+                <div onclick="replace_display_image('utensil7.jpg')"><img class="image-preview asyncImage" src="./images/shop/utensils_low/utensil7.webp" data-src="./images/shop/utensils/utensil7.jpg" ></div>
             </div>
         </div>
 
@@ -473,5 +473,23 @@
       menuToggle.addEventListener('click', toggle);
       menuToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
     }
+
+    (() => {
+      'use strict';
+      // Page is loaded
+      const objects = document.getElementsByClassName('asyncImage');
+      Array.from(objects).map((item) => {
+        // Start loading image
+        const img = new Image();
+        img.src = item.dataset.src;
+        // Once image is loaded replace the src of the HTML element
+        img.onload = () => {
+          item.classList.remove('asyncImage');
+          return item.nodeName === 'IMG' ? 
+            item.src = item.dataset.src :        
+            item.style.backgroundImage = `url(${item.dataset.src})`;
+        };
+      });
+    })();
 </script>
 </html>

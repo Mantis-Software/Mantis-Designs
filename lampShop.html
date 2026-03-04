@@ -428,18 +428,18 @@
             <p class="price-text">$150</p>
         </div>
         <div class="display-image-container">
-            <img class="display-image" src="./images/shop/lamp/lamp1.jpg" >
+            <img class="display-image asyncImage" src="./images/shop/lamp_low/lamp1.webp" data-src="./images/shop/lamp/lamp1.jpg">
             <br>
             <br>
             <div class="image-previews-container">
-                <div onclick="replace_display_image('lamp1.jpg')"><img class="image-preview" src="./images/shop/lamp/lamp1.jpg" ></div>
-                <div onclick="replace_display_image('lamp2.jpg')"><img class="image-preview" src="./images/shop/lamp/lamp2.jpg" ></div>
-                <div onclick="replace_display_image('lamp3.jpg')"><img class="image-preview" src="./images/shop/lamp/lamp3.jpg" ></div>
-                <div onclick="replace_display_image('lamp4.jpg')"><img class="image-preview" src="./images/shop/lamp/lamp4.jpg" ></div>
-                <div onclick="replace_display_image('lamp5.jpg')"><img class="image-preview" src="./images/shop/lamp/lamp5.jpg" ></div>
-                <div onclick="replace_display_image('lamp6.jpg')"><img class="image-preview" src="./images/shop/lamp/lamp6.jpg" ></div>
-                <div onclick="replace_display_image('lamp7.jpg')"><img class="image-preview" src="./images/shop/lamp/lamp7.jpg" ></div>
-                <div onclick="replace_display_image('lamp8.jpg')"><img class="image-preview" src="./images/shop/lamp/lamp8.jpg" ></div>
+                <div onclick="replace_display_image('lamp1.jpg')"><img class="image-preview asyncImage" src="./images/shop/lamp_low/lamp1.webp" data-src="./images/shop/lamp/lamp1.jpg" ></div>
+                <div onclick="replace_display_image('lamp2.jpg')"><img class="image-preview asyncImage" src="./images/shop/lamp_low/lamp2.webp" data-src="./images/shop/lamp/lamp2.jpg" ></div>
+                <div onclick="replace_display_image('lamp3.jpg')"><img class="image-preview asyncImage" src="./images/shop/lamp_low/lamp3.webp" data-src="./images/shop/lamp/lamp3.jpg" ></div>
+                <div onclick="replace_display_image('lamp4.jpg')"><img class="image-preview asyncImage" src="./images/shop/lamp_low/lamp4.webp" data-src="./images/shop/lamp/lamp4.jpg" ></div>
+                <div onclick="replace_display_image('lamp5.jpg')"><img class="image-preview asyncImage" src="./images/shop/lamp_low/lamp5.webp" data-src="./images/shop/lamp/lamp5.jpg" ></div>
+                <div onclick="replace_display_image('lamp6.jpg')"><img class="image-preview asyncImage" src="./images/shop/lamp_low/lamp6.webp" data-src="./images/shop/lamp/lamp6.jpg" ></div>
+                <div onclick="replace_display_image('lamp7.jpg')"><img class="image-preview asyncImage" src="./images/shop/lamp_low/lamp7.webp" data-src="./images/shop/lamp/lamp7.jpg" ></div>
+                <div onclick="replace_display_image('lamp8.jpg')"><img class="image-preview asyncImage" src="./images/shop/lamp_low/lamp8.webp" data-src="./images/shop/lamp/lamp8.jpg" ></div>
             </div>
         </div>
 
@@ -473,5 +473,23 @@
       menuToggle.addEventListener('click', toggle);
       menuToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
     }
+
+    (() => {
+      'use strict';
+      // Page is loaded
+      const objects = document.getElementsByClassName('asyncImage');
+      Array.from(objects).map((item) => {
+        // Start loading image
+        const img = new Image();
+        img.src = item.dataset.src;
+        // Once image is loaded replace the src of the HTML element
+        img.onload = () => {
+          item.classList.remove('asyncImage');
+          return item.nodeName === 'IMG' ? 
+            item.src = item.dataset.src :        
+            item.style.backgroundImage = `url(${item.dataset.src})`;
+        };
+      });
+    })();
 </script>
 </html>

@@ -428,20 +428,20 @@
             <p class="price-text">$250</p>
         </div>
         <div class="display-image-container">
-            <img class="display-image" src="./images/shop/desk_main.JPG" >
+            <img class="display-image" src="./images/shop/desk_low/desk_main.webp" data-src="./images/shop/desk/desk_main.webp">
             <br>
             <br>
             <div class="image-previews-container">
-                <div onclick="replace_display_image('desk_main.JPG')"><img class="image-preview" src="./images/shop/desk_main.JPG" ></div>
-                <div onclick="replace_display_image('desk_image1.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image1.JPG" ></div>
-                <div onclick="replace_display_image('desk_image2.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image2.JPG" ></div>
-                <div onclick="replace_display_image('desk_image3.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image3.JPG" ></div>
-                <div onclick="replace_display_image('desk_image4.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image4.JPG" ></div>
-                <div onclick="replace_display_image('desk_image5.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image5.JPG" ></div>
-                <div onclick="replace_display_image('desk_image6.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image6.JPG" ></div>
-                <div onclick="replace_display_image('desk_image7.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image7.JPG" ></div>
-                <div onclick="replace_display_image('desk_image8.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image8.JPG" ></div>
-                <div onclick="replace_display_image('desk_image9.JPG')"><img class="image-preview" src="./images/shop/desk/desk_image9.JPG" ></div>
+                <div onclick="replace_display_image('desk_main.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_main.webp" data-src="./images/shop/desk/desk_main.jpg"></div>
+                <div onclick="replace_display_image('desk_image1.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image1.webp" data-src="./images/shop/desk/desk_image1.jpg"></div>
+                <div onclick="replace_display_image('desk_image2.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image2.webp" data-src="./images/shop/desk/desk_image2.jpg"></div>
+                <div onclick="replace_display_image('desk_image3.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image3.webp" data-src="./images/shop/desk/desk_image3.jpg"></div>
+                <div onclick="replace_display_image('desk_image4.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image4.webp" data-src="./images/shop/desk/desk_image4.jpg"></div>
+                <div onclick="replace_display_image('desk_image5.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image5.webp" data-src="./images/shop/desk/desk_image5.jpg"></div>
+                <div onclick="replace_display_image('desk_image6.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image6.webp" data-src="./images/shop/desk/desk_image6.jpg"></div>
+                <div onclick="replace_display_image('desk_image7.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image7.webp" data-src="./images/shop/desk/desk_image7.jpg"></div>
+                <div onclick="replace_display_image('desk_image8.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image8.webp" data-src="./images/shop/desk/desk_image8.jpg"></div>
+                <div onclick="replace_display_image('desk_image9.jpg')"><img class="image-preview asyncImage" src="./images/shop/desk_low/desk_image9.webp" data-src="./images/shop/desk/desk_image9.jpg"></div>
             </div>
         </div>
 
@@ -478,5 +478,23 @@
       menuToggle.addEventListener('click', toggle);
       menuToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
     }
+
+    (() => {
+      'use strict';
+      // Page is loaded
+      const objects = document.getElementsByClassName('asyncImage');
+      Array.from(objects).map((item) => {
+        // Start loading image
+        const img = new Image();
+        img.src = item.dataset.src;
+        // Once image is loaded replace the src of the HTML element
+        img.onload = () => {
+          item.classList.remove('asyncImage');
+          return item.nodeName === 'IMG' ? 
+            item.src = item.dataset.src :        
+            item.style.backgroundImage = `url(${item.dataset.src})`;
+        };
+      });
+    })();
 </script>
 </html>
