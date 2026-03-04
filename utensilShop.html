@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop • Mantis Designs</title>
+  <meta
+  name="description"
+  content="A tool that has been around for over 100 years! Ditch the toxic plastic kitchen utensils and cook with a natural wood spoon!" />
+  <link rel="icon" type="image/x-icon" href="./images/White-MantisLogo.ico">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #111111;
+      --muted: #6b7280;
+      --card: #f8f8f8;
+      --ring: rgba(17, 17, 17, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px;}
+
+    header.page-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin: 20px auto 12px; padding: 0 24px; max-width: 1200px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+    .brand img { width: 44px; height: 44px; object-fit: contain; }
+    .brand span { font-size: 20px; letter-spacing: 0.2px; }
+    .crumbs { font-size: 13px; color: var(--muted); }
+
+    h1 { font-weight: 500; font-size: 40px; letter-spacing: -0.4px; margin: 4px 0 24px; }
+    p.lede { color: #374151; max-width: 70ch; margin: 0 0 28px; }
+
+    /* Grid of cards */
+    .grid {
+      display: grid; gap: 22px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    @media (max-width: 1200px) {
+      .grid { grid-template-columns: repeat(8, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(6, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .viewer { height: min(70vh, 100vw); min-height: 320px; }
+    }
+    
+
+    .card {
+      grid-column: span 4;
+      background: var(--card);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(0,0,0,.02), 0 8px 24px -12px rgba(0,0,0,.2);
+      transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease;
+      outline: none;
+    }
+    .card:is(:hover, :focus-visible) {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 1px 0 rgba(0,0,0,.02), 0 18px 42px -16px rgba(0,0,0,.35);
+    }
+    .card-media {
+      width: 100%;
+      aspect-ratio: 0.75;
+      display: block;
+      object-fit: cover;
+      background: #e5e7eb;
+    }
+    .card-cap {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px 16px;
+      gap: 12px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.03) 100%);
+    }
+    .card-title { font-size: 16px; font-weight: 600; letter-spacing: .2px; }
+    .card-meta { font-size: 12px; color: var(--muted); }
+
+    /* Modal / Carousel */
+    .overlay {
+      position: fixed; inset: 0; display: none; z-index: 60;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(2px);
+    }
+    .overlay.open { display: grid; place-items: center; }
+
+    .dialog {
+      width: min(92vw, 1100px);
+      max-height: 90vh;
+      background: #0b0b0b;
+      color: #fff;
+      border-radius: 16px;
+      overflow: clip;
+      position: relative;
+      box-shadow: 0 30px 120px -30px rgba(0,0,0,.6);
+    }
+
+    .viewer {
+      position: relative;
+      width: 100%;
+      height: min(80vh, 72vw); /* ensures visible area even with absolutely positioned slides */
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      background: #000;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .slide { position: absolute; inset: 0; display: none; }
+    .slide.active { display: grid; place-items: center; }
+.slide img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 80vh;      /* ensures image always fits vertically */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+    .caption {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; gap: 12px; background: #0e0e0e;
+      border-top: 1px solid rgba(255,255,255,.06);
+      font-size: 14px;
+    }
+
+    .close-btn {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff; width: 40px; height: 40px; border-radius: 12px;
+      display: grid; place-items: center; cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .close-btn:hover { background: rgba(255,255,255,.14); transform: translateY(-1px); }
+
+    .nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff; display: grid; place-items: center; cursor: pointer;
+      transition: background .2s ease;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,.18); }
+    .nav-prev { left: 10px; }
+    .nav-next { right: 10px; }
+
+    .dots { display: flex; align-items: center; gap: 8px; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.25); border: none; cursor: pointer;
+    }
+    .dot.active { background: #fff; }
+
+    /* Focus ring */
+    .card:focus-visible, .close-btn:focus-visible, .nav-btn:focus-visible, .dot:focus-visible {
+      outline: 3px solid #0000; box-shadow: 0 0 0 4px var(--ring);
+    }
+
+    /* Utility icons */
+    .icon { width: 22px; height: 22px; display: inline-block; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+      /* --- Site navbar styles copied from your main site --- */
+    header.navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background-color: white;
+      border-bottom: 1px solid #e5e5e5;
+      position: relative;
+      z-index: 100;
+    }
+    .navbar .logo { font-size: 28px; }
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+    }
+    .navbar nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+      font-size: 16px;
+    }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+      width: 30px;
+      height: 24px;
+      gap: 6px;
+    }
+    .menu-toggle span {
+      height: 3px;
+      width: 100%;
+      background: black;
+    }
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      header.navbar nav { display: none; flex-direction: column; gap: 10px; position: absolute; top: 100%; right: 20px; background: white; padding: 20px; border: 1px solid #ddd; z-index: 1000; }
+      header.navbar nav.show { display: flex; }
+      .navbar nav ul { flex-direction: column; gap: 10px; }
+    }
+
+    /* Make carousel arrows larger and always visible */
+    .nav-btn { width: 56px; height: 56px; }
+    .nav-btn .icon { width: 24px; height: 24px; }
+    .nav-btn { opacity: 1; }
+      /* Pager buttons visible on all viewports */
+    .pager { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .page-btn { height: 28px; min-width: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: #fff; cursor: pointer; font-size: 12px; }
+    .page-btn.active { background: #fff; color: #000; border-color: #fff; }
+
+    /* Larger, always-visible arrows */
+    .nav-btn { width: 56px; height: 56px; opacity: 1; box-shadow: 0 8px 20px -8px rgba(0,0,0,.6); z-index: 5; }
+    .nav-btn .icon { width: 24px; height: 24px; }
+
+    footer{background:#f4f4f4;padding:60px 24px;color:#666;margin-top:60px}
+    footer .wrap{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+    a {
+      color: inherit;         /* or specify your own color like #000 or white */
+      text-decoration: none;  /* removes underline */
+    }
+
+    a:visited {
+      color: inherit;         /* removes purple color for visited links */
+    }
+
+    @media (max-width: 640px) { .viewer { height: 68vh; min-height: 360px; } }
+    .main-shop-container
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;        
+    }
+    .shop-container
+    {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-wrap: wrap;
+        padding: 50px;
+    }
+
+    .display-image-container
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+    }
+
+    .description-container
+    {
+        padding: 30px;
+        width: 500px;
+
+    }
+    .display-image
+    {
+        width: 600px;
+        border-radius: 16px;
+    }
+    .order-button
+    {
+        background-color: #1d8057;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .order-button:hover
+    {
+        background-color: white;
+        color: #1d8057;
+        border: 1px solid #1d8057;
+    }
+
+    .price-text{
+        font-size: 30px;
+    }
+
+    .image-previews-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    padding: 10px;
+    width: 100%;
+    }
+    .image-previews-container div {
+    text-align: center;
+    }
+    .image-preview
+    {
+        width: 70px;
+        border-radius: 16px;
+    }
+
+    .image-preview:hover
+    {
+        width: 100px;
+        border-radius: 16px;
+    }
+
+    .arrow-image
+    {
+        width: 40px
+    }
+    .tool-menu-container
+    {
+        padding: 30px;
+    }
+
+    .desktop-product-title
+    {
+        display: block;
+    }
+    .mobile-product-title
+    {
+        display: none;
+    }
+
+    @media (max-width: 640px) 
+    {
+        .display-image
+        {
+            width: 300px;
+            border-radius: 16px;
+        }
+
+        .arrow-image
+        {
+            width: 30px
+        }
+
+        .image-preview
+        {
+            width: 50px;
+            border-radius: 16px;
+        }
+
+        .shop-container
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+
+        }
+
+        .description-container
+        {
+            padding: 30px;
+            width: 300px;
+
+        }
+        .desktop-product-title
+        {
+            display: none;
+        }
+         .mobile-product-title
+        {
+            display: block;
+        }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><a href="./index.html" aria-label="Mantis Designs home"><img width="200" src="./images/Mantis_Designs_Logo.png" alt="mantis designs logo" /></a></div>
+    <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="siteNav">
+      <ul>
+        <li><a href="./collection.html" aria-current="page">Collections</a></li>
+        <li><a href="./services.html">Services</a></li>
+        <li><a href="./shop.html">Shop</a></li>
+        <li><a href="./about.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <div class="tool-menu-container">
+        <a href="./shop.html">
+        <img class="arrow-image" src="./images/arrow.png">
+        </a>
+    </div>
+    <div class="main-shop-container">
+    <div class="shop-container">
+        <div class="mobile-product-title">
+            <h1>Kitchen Utensil Set (Spoon + Spatula)</h1>
+            <p class="price-text">$25</p>
+        </div>
+        <div class="display-image-container">
+            <img class="display-image" src="./images/shop/utensils/utensil1.jpg">
+            <br>
+            <br>
+            <div class="image-previews-container">
+                <div onclick="replace_display_image('utensil1.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil1.jpg"></div>
+                <div onclick="replace_display_image('utensil2.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil2.jpg"></div>
+                <div onclick="replace_display_image('utensil3.avif')"><img class="image-preview" src="./images/shop/utensils/utensil3.avif"></div>
+                <div onclick="replace_display_image('utensil4.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil4.jpg"></div>
+                <div onclick="replace_display_image('utensil5.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil5.jpg"></div>
+                <div onclick="replace_display_image('utensil6.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil6.jpg"></div>
+                <div onclick="replace_display_image('utensil7.jpg')"><img class="image-preview" src="./images/shop/utensils/utensil7.jpg"></div>
+            </div>
+        </div>
+
+        <div class="description-container">
+            <div class="desktop-product-title">
+                <h1>Kitchen Utensil Set (Spoon + Spatula)</h1>
+                <p class="price-text">$25</p>
+            </div>
+            <br>
+            <p>Crafted with care from beautiful cherry wood, this handmade wooden spoon is the perfect blend of elegance, durability, and everyday function. Each spoon is applied with Pure Tung oil, a finish that provides a long-lasting, waterproof seal—eliminating the need for frequent re-oiling.<br>This spoon is ideal for gifting or for anyone who values quality craftsmanship and natural materials in their kitchen. Add a touch of rustic charm and durability to your cooking tools today!</p>
+                
+            <br>
+            <br>
+            <button class="order-button" onclick="location.href='https://buy.stripe.com/7sY7sM289cmLdlCefvfUQ0c'">Order Now</button>
+        </div>
+    </div>
+    </div>
+</body>
+
+<script>
+    function replace_display_image(image_name)
+    {
+        const display_image = document.querySelector('.display-image');
+        display_image.src = `./images/shop/utensils/${image_name}`;
+    }
+
+        // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const siteNav = document.getElementById('siteNav');
+    if (menuToggle && siteNav) {
+      const toggle = () => siteNav.classList.toggle('show');
+      menuToggle.addEventListener('click', toggle);
+      menuToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
+    }
+</script>
+</html>
