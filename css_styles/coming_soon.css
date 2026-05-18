@@ -79,7 +79,11 @@
         background-size: cover; 
         background-color: black;   
     }
-
+    .header-logo
+    {
+        width: 60px;
+        padding-top: 50px;
+    }
     .coming-soon-text
     {
         font-size: 50px;
